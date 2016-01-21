@@ -5,17 +5,16 @@ var request = require('request');
 //Get
 exports.findSong = function(req, res){
     var songName = req.params.name;
-    //var root = path.join(__dirname, './../tracks');
+
     var name = songName.toString();
 
-    res.sendFile(name,{root: '../mnt/nas'});
+    res.sendFile(name,{root: '/mnt/nas'});
 };
 
 //Post
 exports.saveTrack = function(req, res){
-	var urlSaveTrack = path.join(__dirname, './../tracks/');
-  var NASUrl = "../mnt/nas/";
 
+  var NASUrl = "/mnt/nas/";
 
 	var fileName = '';
 	var urlRandomName = '';
@@ -30,7 +29,7 @@ exports.saveTrack = function(req, res){
 
            	var random = Math.floor((Math.random() * 100) + 1);
            	name = new Date().getTime()+random+".mp3";
-           	//urlRandomName = urlSaveTrack + name;
+
             urlRandomName = NASUrl + name;
 
            	mp3_file = fs.createWriteStream(urlRandomName);
@@ -50,14 +49,13 @@ exports.saveTrack = function(req, res){
 
 //Delete
 exports.deleteSong = function(req,res){
-    var NASUrl = "../mnt/nas/";
+    var NASUrl = "/mnt/nas/";
     var songName = req.params.name;
-    //var root = path.join(__dirname, './../tracks/');
-    //var songRoute = root + songName;
+  
     var songRoute = NASUrl + songName;
 
     var fs = require('fs');
-    fs.unlinkSync(songRoute);
+    fs.unlink(songRoute);
     res.status(200);
     console.log("Deleted: " + findURL);
 };

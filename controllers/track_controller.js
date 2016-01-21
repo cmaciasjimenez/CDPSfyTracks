@@ -49,13 +49,16 @@ exports.saveTrack = function(req, res){
 
 //Delete
 exports.deleteSong = function(req,res){
-    var NASUrl = "/mnt/nas/";
-    var songName = req.params.name;
-  
-    var songRoute = NASUrl + songName;
+	var NASUrl =  "/mnt/nas/";
+	var songName = req.params.name;
+	console.log("entra");
+	var songRoute = NASUrl + songName;
+	console.log(songRoute);
 
-    var fs = require('fs');
-    fs.unlink(songRoute);
-    res.status(200);
-    console.log("Deleted: " + findURL);
+	fs.unlink(songRoute, function (err){
+	if (err) return console.log("err");
+		console.log("Borrado");
+	}); 
+	console.log("Deleted: " + songRoute);
+	res.status(204).end();
 };

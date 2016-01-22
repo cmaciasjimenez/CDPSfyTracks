@@ -3,24 +3,21 @@ var path = require('path');
 var request = require('request');
 
 //Get
-exports.findSong = function(req, res){
+exports.findSong = function(req, res) {
     var songName = req.params.name;
-
     var name = songName.toString();
 
     res.sendFile(name,{root: '/mnt/nas'});
 };
 
 //Post
-exports.saveTrack = function(req, res){
-
+exports.saveTrack = function(req, res) {
   var NASUrl = "/mnt/nas/";
 
-	var fileName = '';
-	var urlRandomName = '';
+  var fileName = '';
+  var urlRandomName = '';
   var mp3_file;
   var name = '';
-
   var body = '';
   var contador = 0;
         
@@ -30,13 +27,13 @@ exports.saveTrack = function(req, res){
            	var random = Math.floor((Math.random() * 100) + 1);
            	name = new Date().getTime()+random+".mp3";
 
-            urlRandomName = NASUrl + name;
+                urlRandomName = NASUrl + name;
 
            	mp3_file = fs.createWriteStream(urlRandomName);
            	mp3_file.write(data);
            	contador++;
-        }else{
-            mp3_file.write(data);
+        } else {
+           	mp3_file.write(data);
         }
     });
     
@@ -48,7 +45,7 @@ exports.saveTrack = function(req, res){
 };
 
 //Delete
-exports.deleteSong = function(req,res){
+exports.deleteSong = function(req,res) {
     var NASUrl = "/mnt/nas/";
     var songName = req.params.name;
   
